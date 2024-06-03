@@ -1,0 +1,30 @@
+<div class="list-container">
+    <div *ngFor="let item of storedTasks" class="card">
+        <div class="card-header">
+            <h5>{{ item.title }}</h5>
+            <button class="btn-c" (click)="editTask(item)">Edit</button>
+            <button class="btn-c" (click)="deleteTask(item)">Delete</button>
+        </div>
+        <p>{{ item.description }}</p>
+        <p>Status: {{ item.status ? 'Completed' : 'Pending' }}</p>
+    </div>
+</div>
+
+<div *ngIf="editingTask" #editFormContainer class="edit-form-container">
+    <form [formGroup]="editForm" (ngSubmit)="updateTask()">
+        <div>
+            <label for="title">Title</label>
+            <input type="text" id="title" formControlName="title">
+        </div>
+        <div>
+            <label for="description">Description</label>
+            <textarea id="description" formControlName="description"></textarea>
+        </div>
+        <div>
+            <label for="status">Status</label>
+            <input type="checkbox" id="status" formControlName="status">
+        </div>
+        <button type="submit">Update</button>
+        <button type="button" (click)="editingTask = null">Cancel</button>
+    </form>
+</div>
